@@ -1,0 +1,52 @@
+name: Review data candidate and open draft PR
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_commit:
+        description: Exact 40-character commit SHA containing the proposed adapter data
+        required: true
+        type: string
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: adapter-candidate-review
+  cancel-in-progress: false
+jobs:
+  review:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Validate reference and import data only
+        env:
+          CANDIDATE: ${{ inputs.candidate_commit }}
+        run: |
+          [[ "$CANDIDATE" =~ ^[0-9a-f]{40}$ ]] || exit 1
+          git fetch --no-tags origin "$CANDIDATE"
+          python3 -m site_adapter_sdk.review_candidate --candidate-commit "$CANDIDATE"
+          python3 -m unittest discover -s tests -v
+          git diff --check
+      - name: Publish draft only after frozen tests pass
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CANDIDATE: ${{ inputs.candidate_commit }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          branch="codex/adapter-review-$CANDIDATE"
+          if gh api "repos/$GH_REPO/git/ref/heads/$branch" >/dev/null 2>&1; then
+            echo 'Existing candidate branch: review it; do not replay or overwrite.'
+            exit 1
+          fi
+          gh auth setup-git
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$branch"
+          git add -- adapter/
+          git commit -m "Review adapter candidate $CANDIDATE"
+          git push origin "$branch"
+          gh pr create --draft --base main --head "$branch" --title 'Review data-only adapter revision' --body 'Imported only allowlisted adapter data. Trusted-main tests passed. No automatic merge, signature, activation, real submission or marketplace publication. Review the exact diff and obtain applicable real-site acceptance before release.'
