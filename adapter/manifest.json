@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "dengluyi-site-adapter/1",
+  "id": "dengluyi-arxiv-tex",
+  "version": "0.1.0",
+  "origins": [
+    "https://arxiv.org"
+  ],
+  "hostProtocol": "dengluyi-browser/1",
+  "permissions": [
+    "snapshot",
+    "fill",
+    "select",
+    "upload",
+    "click",
+    "submit"
+  ],
+  "runtime": "declarative-v1",
+  "verificationLevel": "offline-candidate"
+}

@@ -1,0 +1,9 @@
+{
+  "manifest.json": "d5b6d829d3ca4db14121e7f66c7fbd462498893bb15ad5f8f278212e502f9599",
+  "workflows/main.json": "cc2ed121640344d0a3a7786a59b220ecbbf25c28c590db50f43f2b459a53bf36",
+  "schemas/input.json": "7d5a7bcd33ff69a47d5a652ce8ad21c8706dcc43810265bdfc8c9b28a6e59ced",
+  "skills/site-guide.md": "67b2c597ccadc5bc72df7ecabf53fd8ae5717d32bfe4faa5ceee07d7bd79d8f2",
+  "tests/fixtures.json": "a7addf3c00bee3985e76739e40de91aa47a577e8835bc5bb2ff98960cfa5bae9",
+  "reports/acceptance.json": "dc4287c87a8f4438ed87cbf098fcb1aaa1381f11d884ab41a78b7ad783cd62bb",
+  "README.md": "77e41d6d396d2f88113b1b65b86a2d567fd87e028f6cdc5734c3f697d4912b45"
+}

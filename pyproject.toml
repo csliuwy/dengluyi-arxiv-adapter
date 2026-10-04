@@ -1,0 +1,8 @@
+[project]
+name = "dengluyi-arxiv-adapter"
+version = "0.1.0"
+requires-python = ">=3.10"
+license = "MIT"
+
+[tool.setuptools.packages.find]
+include = ["site_adapter_sdk*"]

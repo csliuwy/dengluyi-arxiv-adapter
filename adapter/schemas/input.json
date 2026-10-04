@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "abstract": {
+      "type": "string"
+    },
+    "authors": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "license": {
+      "type": "string"
+    },
+    "comments": {
+      "type": "string"
+    }
+  }
+}

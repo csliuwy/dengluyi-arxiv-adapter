@@ -1,0 +1,318 @@
+{
+  "schemaVersion": "dengluyi-site-adapter/1",
+  "steps": [
+    {
+      "id": "observe-receipt",
+      "action": "receipt",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Submission complete",
+        "Submission ID"
+      ],
+      "labels": [],
+      "field": "",
+      "instruction": "仅在此候选回执页经授权核实、全部页面文字同时匹配时，观察并记录页面实际显示的投稿编号和状态。回执不代表受理、审核通过或公开发布。若提交后未出现可确认回执，停止并由作者核查账户状态，禁止自动重新提交。"
+    },
+    {
+      "id": "confirm-final-submission",
+      "action": "manual",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Review Submission",
+        "Submit Article"
+      ],
+      "labels": [
+        "Submit Article"
+      ],
+      "field": "",
+      "instruction": "暂停，由作者核对最终 PDF、标题、摘要、作者顺序、分类、许可和声明，并明确确认提交当前版本。记录本次版本的确认状态；内容改变即使确认失效。本步骤不点击提交。"
+    },
+    {
+      "id": "submit-article-once",
+      "action": "submit",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Review Submission",
+        "Submit Article"
+      ],
+      "labels": [
+        "Submit Article"
+      ],
+      "field": "",
+      "instruction": "仅在适配器完成授权验收且作者已明确确认当前版本后，精确匹配并点击一次 Submit Article。开发阶段不得执行。执行前标记已尝试提交；超时、断线或页面变化不明时停止，不重放。点击本身不构成成功证据。"
+    },
+    {
+      "id": "fill-title",
+      "action": "fill",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Submission Metadata",
+        "Title",
+        "Abstract"
+      ],
+      "labels": [
+        "Title"
+      ],
+      "field": "title",
+      "instruction": "填写作者已确认的标题；不得生成、猜测或改写。缺少确认值、标签不唯一或页面不匹配时停止。"
+    },
+    {
+      "id": "fill-abstract",
+      "action": "fill",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Submission Metadata",
+        "Title",
+        "Abstract"
+      ],
+      "labels": [
+        "Abstract"
+      ],
+      "field": "abstract",
+      "instruction": "填写作者已确认的摘要，保留其含义及允许的数学表达。缺少确认值或无法确认填写结果时停止。"
+    },
+    {
+      "id": "fill-authors",
+      "action": "fill",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Submission Metadata",
+        "Title",
+        "Abstract"
+      ],
+      "labels": [
+        "Authors"
+      ],
+      "field": "authors",
+      "instruction": "按作者确认的拼写、顺序和实际控件格式填写作者信息。不得推断署名资格或擅自增删作者；若页面采用不同的作者录入结构，停止并修订候选。"
+    },
+    {
+      "id": "select-category",
+      "action": "select",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Submission Metadata",
+        "Title",
+        "Abstract"
+      ],
+      "labels": [
+        "Primary Category"
+      ],
+      "field": "category",
+      "instruction": "仅选择作者明确确认且在当前选项中精确存在的主分类。不得自动选择近似分类或增添交叉分类；若分类位于其他页面，停止并按实测页面修订。"
+    },
+    {
+      "id": "fill-comments",
+      "action": "fill",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Submission Metadata",
+        "Title",
+        "Abstract"
+      ],
+      "labels": [
+        "Comments"
+      ],
+      "field": "comments",
+      "instruction": "仅填写作者已确认的备注。作者明确要求留空时保持空白，不生成页数、图数或出版信息；尚未确认是否填写时暂停。"
+    },
+    {
+      "id": "continue-metadata",
+      "action": "click",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Submission Metadata",
+        "Title",
+        "Abstract"
+      ],
+      "labels": [
+        "Continue"
+      ],
+      "field": "",
+      "instruction": "必须先完成并回读核对标题、摘要及其他适用元数据，再点击 Continue。标题或摘要尚未填写、出现校验错误或任一值未经确认时不得前进。"
+    },
+    {
+      "id": "review-compiled-preview",
+      "action": "manual",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Preview",
+        "PDF"
+      ],
+      "labels": [
+        "Continue"
+      ],
+      "field": "",
+      "instruction": "由作者检查网站实际生成的 PDF 预览及编译结果，核对正文、公式、图表、引用和字体。确认网站编译完成且预览正确后记录批准；本地编译、上传完成或存在预览按钮均不能替代此检查。不得下载文件。"
+    },
+    {
+      "id": "accept-compiled-preview",
+      "action": "click",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Preview",
+        "PDF"
+      ],
+      "labels": [
+        "Continue"
+      ],
+      "field": "",
+      "instruction": "仅在作者批准当前源码版本的网站 PDF 预览且没有未处理错误后点击 Continue 前往元数据页。源码或编译设置改变后必须重新编译并重新人工检查。页面仍是候选，必须另行核实。"
+    },
+    {
+      "id": "choose-compilation-settings",
+      "action": "manual",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Compiler",
+        "Top-level TeX file"
+      ],
+      "labels": [
+        "Compiler",
+        "Top-level TeX file"
+      ],
+      "field": "",
+      "instruction": "由作者在网站上确认适用编译器和顶层 TeX 文件。不得根据文件名猜测入口；多个候选入口、缺失依赖或不兼容设置须先解决。此处不使用未获准的数据字段。"
+    },
+    {
+      "id": "confirm-file-deletions",
+      "action": "manual",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Confirm",
+        "delete"
+      ],
+      "labels": [
+        "Confirm"
+      ],
+      "field": "",
+      "instruction": "此 Confirm 在公开文档中指向文件删除确认，不是编译器设置确认。由作者亲自检查网站拟删除的文件并操作；适配器不能自动点击或删除。本弹窗的实际 DOM 文字和路径尚未核实，不匹配则停下。"
+    },
+    {
+      "id": "review-file-checks",
+      "action": "manual",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "File Check Results"
+      ],
+      "labels": [
+        "Accept and Continue"
+      ],
+      "field": "",
+      "instruction": "由作者检查网站文件检查结果并处理缺失文件、大小写错误、依赖、参考文献和其他警告。存在阻断错误时不得继续；源码变更后须重新上传并检查。"
+    },
+    {
+      "id": "accept-file-checks",
+      "action": "click",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "File Check Results"
+      ],
+      "labels": [
+        "Accept and Continue"
+      ],
+      "field": "",
+      "instruction": "仅在网站文件检查完成、阻断错误已解决且作者已核对结果后点击 Accept and Continue。文件检查通过不代表网站编译成功。"
+    },
+    {
+      "id": "check-uploaded-files",
+      "action": "click",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Uploaded Files"
+      ],
+      "labels": [
+        "Check Files"
+      ],
+      "field": "",
+      "instruction": "核对网站显示的已上传文件与作者指定的源码包一致后，点击 Check Files。文件列表缺失、上传状态不明或页面出现异常时停止。"
+    },
+    {
+      "id": "choose-source-zip",
+      "action": "upload",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Upload Files"
+      ],
+      "labels": [
+        "Choose File"
+      ],
+      "field": "",
+      "instruction": "仅在未来获准的试运行中，通过精确标签 Choose File 选择作者明确指定的 TeX ZIP。包内应包含源码、图件、必要样式及适用的参考文献文件；保留文件名大小写，并核对 Bib 处理或预编译 bbl 的兼容性。当前开发阶段不得选择或上传论文。"
+    },
+    {
+      "id": "upload-source-zip",
+      "action": "click",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Upload Files"
+      ],
+      "labels": [
+        "Upload"
+      ],
+      "field": "",
+      "instruction": "仅在获准试运行中确认已选文件名与作者指定 ZIP 一致后点击 Upload。上传结束须观察网站实际结果；超时或状态不明时停止核查，上传不等于投稿完成。"
+    },
+    {
+      "id": "confirm-license",
+      "action": "manual",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "License"
+      ],
+      "labels": [
+        "Continue"
+      ],
+      "field": "",
+      "instruction": "由作者阅读实际许可选项，亲自选择并确认适用许可，再操作此页面的 Continue。不得预选、推荐默认许可或代替作者确认。许可选项的精确文字和此页面导航标签尚待授权核实；不匹配则停止。"
+    },
+    {
+      "id": "confirm-author-declarations",
+      "action": "manual",
+      "pathPrefix": "/submit",
+      "pageTexts": [
+        "Author Declarations"
+      ],
+      "labels": [
+        "Continue"
+      ],
+      "field": "",
+      "instruction": "由作者阅读并亲自完成网站实际要求的投稿资格、署名及其他声明，随后操作 Continue。不得自动勾选、代签或推定同意；实际声明文本和导航标签须先经授权核实。"
+    },
+    {
+      "id": "resolve-endorsement",
+      "action": "manual",
+      "pathPrefix": "/auth",
+      "pageTexts": [
+        "Endorsement"
+      ],
+      "labels": [],
+      "field": "",
+      "instruction": "如网站要求背书，由作者亲自完成资格或背书流程。不得自动联系他人、推定资格通过或绕过限制。仅在网站显示资格已满足后恢复相应已验收步骤；该路径和页面文字均为候选。"
+    },
+    {
+      "id": "start-new-submission",
+      "action": "click",
+      "pathPrefix": "/user",
+      "pageTexts": [
+        "START NEW SUBMISSION"
+      ],
+      "labels": [
+        "START NEW SUBMISSION"
+      ],
+      "field": "",
+      "instruction": "作者完成登录并确认以本人身份提交自己的工作后，才可在获准试运行中点击 START NEW SUBMISSION。若账户已有本次稿件的未完成投稿，应由作者定位现有记录，禁止自动重复新建。"
+    },
+    {
+      "id": "author-login",
+      "action": "manual",
+      "pathPrefix": "/login",
+      "pageTexts": [
+        "Login"
+      ],
+      "labels": [],
+      "field": "",
+      "instruction": "由作者直接在 https://arxiv.org 完成人工登录及网站要求的身份验证。适配器不得读取、填写、保存或输出账号密码、验证码及其他凭据。登录后的未知页面必须停止。"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+name: Verify adapter and watch public specification
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 2 * * 1"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - run: python3 -m unittest discover -s tests -v
+      - name: Detect public specification drift (does not submit or update code)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: python3 -m site_adapter_sdk.site_watch --baseline docs-baseline.json

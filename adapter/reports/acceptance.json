@@ -1,0 +1,121 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "id": "schema",
+      "passed": true
+    },
+    {
+      "id": "arxiv_public_specification_safety",
+      "passed": true
+    },
+    {
+      "id": "unmatched_page_stops",
+      "passed": true
+    },
+    {
+      "id": "foreign_origin_blocked",
+      "passed": true
+    },
+    {
+      "id": "truncated_snapshot_blocked",
+      "passed": true
+    },
+    {
+      "id": "synthetic_observe-receipt",
+      "passed": true
+    },
+    {
+      "id": "synthetic_confirm-final-submission",
+      "passed": true
+    },
+    {
+      "id": "synthetic_submit-article-once",
+      "passed": true
+    },
+    {
+      "id": "synthetic_fill-title",
+      "passed": true
+    },
+    {
+      "id": "synthetic_fill-abstract",
+      "passed": true
+    },
+    {
+      "id": "synthetic_fill-authors",
+      "passed": true
+    },
+    {
+      "id": "synthetic_select-category",
+      "passed": true
+    },
+    {
+      "id": "synthetic_fill-comments",
+      "passed": true
+    },
+    {
+      "id": "synthetic_continue-metadata",
+      "passed": true
+    },
+    {
+      "id": "synthetic_review-compiled-preview",
+      "passed": true
+    },
+    {
+      "id": "synthetic_accept-compiled-preview",
+      "passed": true
+    },
+    {
+      "id": "synthetic_choose-compilation-settings",
+      "passed": true
+    },
+    {
+      "id": "synthetic_confirm-file-deletions",
+      "passed": true
+    },
+    {
+      "id": "synthetic_review-file-checks",
+      "passed": true
+    },
+    {
+      "id": "synthetic_accept-file-checks",
+      "passed": true
+    },
+    {
+      "id": "synthetic_check-uploaded-files",
+      "passed": true
+    },
+    {
+      "id": "synthetic_choose-source-zip",
+      "passed": true
+    },
+    {
+      "id": "synthetic_upload-source-zip",
+      "passed": true
+    },
+    {
+      "id": "synthetic_confirm-license",
+      "passed": true
+    },
+    {
+      "id": "synthetic_confirm-author-declarations",
+      "passed": true
+    },
+    {
+      "id": "synthetic_resolve-endorsement",
+      "passed": true
+    },
+    {
+      "id": "synthetic_start-new-submission",
+      "passed": true
+    },
+    {
+      "id": "synthetic_author-login",
+      "passed": true
+    }
+  ],
+  "verificationLevel": "offline-candidate",
+  "realWebsiteTested": false,
+  "loginEasyNativeIntegrationTested": false,
+  "publicationPerformed": false
+}
