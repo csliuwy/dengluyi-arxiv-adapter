@@ -47,6 +47,15 @@ not weakening the validator. This workflow has local regression coverage; a real
 still needs an actual candidate. Do not use a meaningless version bump as a fake repair test.
 
 ## Public documentation drift checks
-Create a reviewed public-doc baseline: python -m site_adapter_sdk.site_watch --baseline docs-baseline.json --record-baseline
+The [2026-10-26 review](docs/watch-review-20261026.md) migrates the baseline from
+whole-page text to the unique article's structure, text and link targets. Global
+navigation/footer changes no longer masquerade as article revisions. Missing or
+unexpected articles still fail closed. Legacy baselines retain their old semantics.
+
+After reviewing the exact public-document changes, create a **new** baseline file:
+python -m site_adapter_sdk.site_watch --baseline reviewed-new-baseline.json --record-baseline
+
+Recording refuses an existing path. Review the diff and preserve the previous
+baseline before deliberately replacing the tracked baseline; do not do this in CI.
 Watch: python -m site_adapter_sdk.site_watch --baseline docs-baseline.json
 Exit 3 means changed specification; 2 means failed observation. Neither permits auto-activation.

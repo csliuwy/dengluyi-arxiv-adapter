@@ -1,4 +1,8 @@
 {
-  "https://info.arxiv.org/help/submit/index.html": "7f3a9f629133c1c0fd87ebb8a7fda35d3e4fa4c4b5d53991eecd8560ca0a9832",
-  "https://info.arxiv.org/help/submit_tex.html": "09c63e0ba258da1d08174dc8009ed4cb87f163dcfc7300b4f640ab138db8bbd4"
+  "schemaVersion": "arxiv-public-docs/2",
+  "normalization": "unique-article-structure-text-links/1",
+  "pages": {
+    "https://info.arxiv.org/help/submit/index.html": "1d0253ed1f8309bac1f98d77109bd356c46ed6845076fe99b22cd35242373022",
+    "https://info.arxiv.org/help/submit_tex.html": "ae63e2900ea0a1846992b5f90f2a77b98629b4e422b7ef4a8ec98c6109d997de"
+  }
 }

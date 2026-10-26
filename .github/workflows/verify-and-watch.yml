@@ -10,9 +10,29 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
       - run: python3 -m unittest discover -s tests -v
       - name: Detect public specification drift (does not submit or update code)
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        run: python3 -m site_adapter_sdk.site_watch --baseline docs-baseline.json
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+        shell: bash
+        run: |
+          status=0
+          python3 -m site_adapter_sdk.site_watch --baseline docs-baseline.json > public-spec-watch.json || status=$?
+          cat public-spec-watch.json
+          {
+            echo '## Public specification watch (no automatic activation)'
+            echo 'Exit 0: unchanged watched article; 2: observation failed; 3: revision needs review.'
+            echo '```json'
+            cat public-spec-watch.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$status" -eq 3 ]; then
+            echo '::error title=Public article drift requires review::Review the watched articles and evidence before changing a baseline. No automatic activation.'
+          elif [ "$status" -ne 0 ]; then
+            echo '::error title=Public article observation failed::Do not treat an unavailable or unexpected page as unchanged.'
+          fi
+          exit "$status"
